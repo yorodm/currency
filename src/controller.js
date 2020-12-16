@@ -80,5 +80,5 @@ module.exports = {
         message: "Currency definition with id" + currencyId + "not found"
       })
     })
-  } 
+  }
 };

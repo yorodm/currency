@@ -23,7 +23,7 @@ server.get('/currency', currencyController.getAll);
 server.get('/currency/:id', currencyController.getOne);
 server.post('/currency', currencyController.create);
 server.put('/currency/:id', currencyController.update);
-server.put('/currency/:id', currencyController.delete);
+server.delete('/currency/:id', currencyController.delete);
 
 //
 // exposed server
