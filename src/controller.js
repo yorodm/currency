@@ -2,6 +2,18 @@
 const CurrencyModel = require('./model');
 
 module.exports = {
+
+  getAllByMarket(req, res) {
+    const market = req.params["market"];
+    CurrencyModel.find({market: market}, (err,result) => {
+	  console.log(result)
+      if(err){
+        return res.status(500).json(err);
+      }
+      return res.json(result);
+	})
+  },
+
   getAll(req, res) {
     CurrencyModel.find((err,result) => {
        if(err){

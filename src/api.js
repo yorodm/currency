@@ -19,6 +19,7 @@ server.use(cors());
 
 //
 // routes
+server.get('/:market/currency', currencyController.getAllByMarket);
 server.get('/currency', currencyController.getAll);
 server.get('/currency/:id', currencyController.getOne);
 server.post('/currency', currencyController.create);
