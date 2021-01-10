@@ -44,6 +44,24 @@ describe("Currency API", () => {
 	});
   });
 
+  describe("GET /currency/:id", () => {
+	it("should return the requested currency", async () => {
+	  const currency = new Currency({
+		code: true,
+		before: true,
+		description: "Canadian Dollar",
+		format: "$####.##",
+		market: "CA"
+	  });
+	  await currency.save();
+	  const res = await request(server).get("/currency/" + currency._id);
+	  const data = res.body;
+	  expect(data).to.have.property("description", "Canadian Dollar");
+	  expect(data).to.have.property("market", "CA");
+	  expect(res.status).to.equal(200);
+	});
+  });
+
   describe("GET /:market/currency/", () => {
 	it("should return a list of currencies for the given market", async () => {
 	  const res = await request(server).get("/UK/currency/");
