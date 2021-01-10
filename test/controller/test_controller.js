@@ -101,6 +101,15 @@ describe("Currency API", () => {
 	  expect(res.body).to.have.property("showCents", true);
 	  expect(res.body).to.have.property("before", false);
 	});
+	it("should return 500 when id is invalid", async () => {
+	  const res = await request(server)
+			.put("/currency/212121212")
+			.send({
+			  showCents: true,
+			  before: false
+			});
+	  expect(res.status).to.be.equal(500);
+	});
   });
 
   describe("DELETE /currency/:id", () => {
