@@ -24,9 +24,7 @@ module.exports = {
   },
 
   create(req, res) {
-    const id = uuidv4();
     let currency = req.body;
-    currency.id = id
     CurrencyModel.create(currency, (err, result) => {
       if (err) {
         return res.status(500).json(err);
@@ -36,8 +34,8 @@ module.exports = {
   },
 
   update(req,res) {
-    const currencyId = req.params["currencyID"]
-    CurrencyModel.findOne({id: currencyID}, (err, result) =>{
+    const currencyId = req.params["id"]
+    CurrencyModel.findOne({_id: currencyID}, (err, result) =>{
       if(err) {
         return res.status(500).json(err);
       }
@@ -61,8 +59,8 @@ module.exports = {
   },
 
   delete(req,res) {
-    const currencyId = req.params["currencyID"];
-    CurrencyModel.findOne({id: currencyID}, (err, result) =>{
+    const currencyId = req.params["id"];
+    CurrencyModel.findOne({_id: currencyID}, (err, result) =>{
       if(err) {
         return res.status(500).json(err);
       }
