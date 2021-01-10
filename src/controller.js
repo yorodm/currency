@@ -58,25 +58,18 @@ module.exports = {
 
   delete(req,res) {
     const currencyId = req.params["id"];
-    CurrencyModel.findOne({_id: currencyID}, (err, result) =>{
-      if(err) {
-		console.log(err);
-        return res.status(500).json(err);
-      }
-      if(result) {
-        result.remove((error) => {
-          if(error) {
-			console.log(err);
-            return res.status(500).json(err)
-          }
-          return res.json({
-            message : "Currency definition with id" + currencyId + "has been eliminated"
-          })
-        })
-      }
-      return response.status(404).json({
-        message: "Currency definition with id" + currencyId + "not found"
+    CurrencyModel.findByIdAndDelete({_id: currencyId})
+	  .then(result => {
+		if(result === null) {
+		  return res.status(404).json({
+			"message": "Does not exists"
+		  })
+		}
+		return res.json(result);
       })
-    })
+      .catch(err => {
+		console.log(err);
+		return res.status(500).json(err);
+      });
   }
 };
