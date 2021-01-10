@@ -90,17 +90,15 @@ describe("Currency API", () => {
 		market: "CA"
 	  });
 	  await currency.save();
-
 	  const res = await request(server)
 			.put("/currency/" + currency._id)
 			.send({
 			  showCents: true,
 			  before: false
 			});
-	  console.log(res);
 	  expect(res.status).to.equal(200);
 	  expect(res.body).to.have.property("description", "Canadian Dollar");
-	  expect(res.body).to.have.property("showCents", false);
+	  expect(res.body).to.have.property("showCents", true);
 	  expect(res.body).to.have.property("before", false);
 	});
   });
