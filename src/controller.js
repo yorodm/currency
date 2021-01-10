@@ -61,6 +61,7 @@ module.exports = {
         result.market = req.body.market;
         result.save((error,currency) => {
           if(error) {
+			console.log(err);
             return res.status(500).json(err)
           }
           return res.json(currency)
