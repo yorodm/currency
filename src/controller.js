@@ -47,30 +47,13 @@ module.exports = {
 
   update(req,res) {
     const currencyId = req.params["id"]
-    CurrencyModel.findOne({_id: currencyId}, (err, result) =>{
-      if(err) {
-		console.log(err);
-        return res.status(500).json(err);
-      }
-      if(result) {
-        result.code = req.body.code;
-        result.before = req.body.before;
-        result.description = req.body.description;
-        result.showCents = req.body.showCents;
-        result.format = req.body.format;
-        result.market = req.body.market;
-        result.save((error,currency) => {
-          if(error) {
-			console.log(err);
-            return res.status(500).json(err)
-          }
-          return res.json(currency)
-        })
-      }
-      return response.status(404).json({
-        message: "Currency definition with id" + currencyId + "not found"
-      })
+	CurrencyModel.findByIdAndUpdate(currencyId, req.body, { new: true })
+    .then(result => {
+      return res.send(result);
     })
+    .catch(err => {
+      return res.status(500).send(err);
+    });
   },
 
   delete(req,res) {
