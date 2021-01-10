@@ -16,10 +16,11 @@ module.exports = {
 
   getAll(req, res) {
     CurrencyModel.find((err,result) => {
-       if(err){
-         return res.status(500).json(err);
-       }
-       return res.json(result);
+      if(err){
+		console.log(err);
+        return res.status(500).json(err);
+      }
+      return res.json(result);
     })
   },
 
@@ -27,6 +28,7 @@ module.exports = {
     const currencyID = req.params['currencyID'];
     CurrencyModel.find({ id: currencyID }, (err, result) => {
       if (err) {
+		console.log(err);
         return res.status(500).json(err);
       }
       return res.json(result);
@@ -37,6 +39,7 @@ module.exports = {
     let currency = req.body;
     CurrencyModel.create(currency, (err, result) => {
       if (err) {
+		console.log(err);
         return res.status(500).json(err);
       }
       return res.json(result);
@@ -47,6 +50,7 @@ module.exports = {
     const currencyId = req.params["id"]
     CurrencyModel.findOne({_id: currencyID}, (err, result) =>{
       if(err) {
+		console.log(err);
         return res.status(500).json(err);
       }
       if(result) {
@@ -55,11 +59,12 @@ module.exports = {
         result.description = req.body.description;
         result.showCents = req.body.showCents;
         result.format = req.body.format;
+        result.market = req.body.market;
         result.save((error,currency) => {
-           if(error) {
-             return res.status(500).json(err)
-           }
-           return res.json(currency)
+          if(error) {
+            return res.status(500).json(err)
+          }
+          return res.json(currency)
         })
       }
       return response.status(404).json({
@@ -72,16 +77,18 @@ module.exports = {
     const currencyId = req.params["id"];
     CurrencyModel.findOne({_id: currencyID}, (err, result) =>{
       if(err) {
+		console.log(err);
         return res.status(500).json(err);
       }
       if(result) {
         result.remove((error) => {
-           if(error) {
-             return res.status(500).json(err)
-           }
-           return res.json({
+          if(error) {
+			console.log(err);
+            return res.status(500).json(err)
+          }
+          return res.json({
             message : "Currency definition with id" + currencyId + "has been eliminated"
-           })
+          })
         })
       }
       return response.status(404).json({
