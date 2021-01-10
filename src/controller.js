@@ -48,12 +48,12 @@ module.exports = {
   update(req,res) {
     const currencyId = req.params["id"]
 	CurrencyModel.findByIdAndUpdate(currencyId, req.body, { new: true })
-    .then(result => {
-      return res.send(result);
-    })
-    .catch(err => {
-      return res.status(500).send(err);
-    });
+      .then(result => {
+		return res.json(result);
+      })
+      .catch(err => {
+		return res.status(500).json(err);
+      });
   },
 
   delete(req,res) {
