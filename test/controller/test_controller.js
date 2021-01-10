@@ -58,5 +58,26 @@ describe("Currency API", () => {
 	});
   });
 
+  describe("POST /currency", () => {
+	it("should return currency when the all request body is valid", async () => {
+	  const res = await request(server)
+			.post("/currency")
+			.send({
+			  code: true,
+			  before: true,
+			  description: "Canadian Dollar",
+			  format: "####.##",
+			  market: "CA"
+			});
+	  const data = res.body;
+	  expect(res.status).to.equal(200);
+	  expect(data).to.have.property("_id");
+	  expect(data).to.have.property("description", "Canadian Dollar");
+	  expect(data).to.have.property("market", "CA");
+	  const currency = await Currency.findOne({ description: 'Canadian Dollar' });
+	  expect(currency.market).to.equal('CA');
+	  expect(currency.showCents).to.equal(false);
+	});
+  });
 
 });
