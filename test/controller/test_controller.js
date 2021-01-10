@@ -121,7 +121,7 @@ describe("Currency API", () => {
 	});
 
 	it("should return 404 when deleted currency is requested", async () => {
-	  let res = await request(server).get("/currency/" + currencyId);
+	  let res = await request(server).delete("/currency/" + currencyId);
 	  expect(res.status).to.be.equal(404);
 	});
   });
