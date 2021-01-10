@@ -47,7 +47,7 @@ module.exports = {
 
   update(req,res) {
     const currencyId = req.params["id"]
-    CurrencyModel.findOne({_id: currencyID}, (err, result) =>{
+    CurrencyModel.findOne({_id: currencyId}, (err, result) =>{
       if(err) {
 		console.log(err);
         return res.status(500).json(err);
