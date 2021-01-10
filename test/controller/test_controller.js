@@ -102,4 +102,28 @@ describe("Currency API", () => {
 	  expect(res.body).to.have.property("before", false);
 	});
   });
+
+  describe("DELETE /currency/:id", () => {
+	it("should delete requested id and return response 200", async () => {
+	  let currency = new Currency({
+		code: true,
+		before: true,
+		description: "Canadian Dollar",
+		format: "$####.##",
+		market: "CA"
+	  });
+	  await currency.save();
+	  currencyId = currency._id;
+	  const res = await request(server).delete("/currency/" + currencyId);
+	  expect(res.status).to.be.equal(200);
+	  let remaining = await Currency.find({});
+	  expect(remaining.length).to.be.equal(2);
+	});
+
+	it("should return 404 when deleted currency is requested", async () => {
+	  let res = await request(server).get("/currency/" + currencyId);
+	  expect(res.status).to.be.equal(404);
+	});
+  });
+
 });
