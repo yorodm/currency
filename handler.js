@@ -15,7 +15,7 @@ const apiServer = awsServerlessExpress.createServer(api);
 module.exports.microservice = (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
   if (mongoose.connection.readyState === 0) {
-    mongoose.connect(process.env.MONGODB_CONNECTION_STRING, { poolSize: 2 });
+    mongoose.connect(process.env.MONGODB_CONNECTION_STRING, { poolSize: 2, useFindAndModify: false });
     console.log('mongoose.connection.readyState === 0');
   }
 
