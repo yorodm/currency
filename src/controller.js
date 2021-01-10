@@ -6,7 +6,6 @@ module.exports = {
   getAllByMarket(req, res) {
     const market = req.params["market"];
     CurrencyModel.find({market: market}, (err,result) => {
-	  console.log(result)
       if(err){
         return res.status(500).json(err);
       }
