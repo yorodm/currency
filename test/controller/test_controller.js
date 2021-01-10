@@ -80,4 +80,28 @@ describe("Currency API", () => {
 	});
   });
 
+  describe("PUT /currency/:id ", () => {
+	it("should update the existing currency and return 200", async() => {
+	  const currency = new Currency({
+		code: true,
+		before: true,
+		description: "Canadian Dollar",
+		format: "$####.##",
+		market: "CA"
+	  });
+	  await currency.save();
+
+	  const res = await request(server)
+			.put("/currency/" + currency._id)
+			.send({
+			  showCents: true,
+			  before: false
+			});
+	  console.log(res);
+	  expect(res.status).to.equal(200);
+	  expect(res.body).to.have.property("description", "Canadian Dollar");
+	  expect(res.body).to.have.property("showCents", false);
+	  expect(res.body).to.have.property("before", false);
+	});
+  });
 });
