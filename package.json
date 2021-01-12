@@ -12,12 +12,14 @@
     "mongoose": "^5.11.7"
   },
   "devDependencies": {
+    "c8": "^7.4.0",
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
     "nodemon": "^2.0.7",
     "supertest": "^6.0.1"
   },
   "scripts": {
+    "cover": "NODE_ENV=test LOG_LEVEL=silent MONGODB_CONNECTION_STRING=mongodb://127.0.0.1/test c8 -r text -r lcov mocha --recursive",
     "test": "NODE_ENV=test MONGODB_CONNECTION_STRING=mongodb://127.0.0.1/test mocha --recursive"
   },
   "author": "",
